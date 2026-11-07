@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ItineraryRouteImport } from './routes/itinerary'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as TogetherRouteImport } from './routes/together'
+import { Route as PlacePlaceIdRouteImport } from './routes/place.$placeId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ItineraryRoute = ItineraryRouteImport.update({
+  id: '/itinerary',
+  path: '/itinerary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TogetherRoute = TogetherRouteImport.update({
+  id: '/together',
+  path: '/together',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacePlaceIdRoute = PlacePlaceIdRouteImport.update({
+  id: '/place/$placeId',
+  path: '/place/$placeId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/itinerary': typeof ItineraryRoute
+  '/map': typeof MapRoute
+  '/together': typeof TogetherRoute
+  '/place/$placeId': typeof PlacePlaceIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/itinerary': typeof ItineraryRoute
+  '/map': typeof MapRoute
+  '/together': typeof TogetherRoute
+  '/place/$placeId': typeof PlacePlaceIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/itinerary': typeof ItineraryRoute
+  '/map': typeof MapRoute
+  '/together': typeof TogetherRoute
+  '/place/$placeId': typeof PlacePlaceIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/itinerary' | '/map' | '/together' | '/place/$placeId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/itinerary' | '/map' | '/together' | '/place/$placeId'
+  id: '__root__' | '/' | '/itinerary' | '/map' | '/together' | '/place/$placeId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ItineraryRoute: typeof ItineraryRoute
+  MapRoute: typeof MapRoute
+  TogetherRoute: typeof TogetherRoute
+  PlacePlaceIdRoute: typeof PlacePlaceIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/itinerary': {
+      id: '/itinerary'
+      path: '/itinerary'
+      fullPath: '/itinerary'
+      preLoaderRoute: typeof ItineraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/together': {
+      id: '/together'
+      path: '/together'
+      fullPath: '/together'
+      preLoaderRoute: typeof TogetherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/place/$placeId': {
+      id: '/place/$placeId'
+      path: '/place/$placeId'
+      fullPath: '/place/$placeId'
+      preLoaderRoute: typeof PlacePlaceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ItineraryRoute: ItineraryRoute,
+  MapRoute: MapRoute,
+  TogetherRoute: TogetherRoute,
+  PlacePlaceIdRoute: PlacePlaceIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
