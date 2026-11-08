@@ -1,10 +1,6 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRoute } from '@tanstack/react-router';
+import { MainLayout } from '@/layouts/MainLayout/MainLayout';
 
 export const Route = createRootRoute({
-  component: () => (
-    <div>
-      <h1>여름 (Yeoreum) Root</h1>
-      <Outlet />
-    </div>
-  ),
+  component: MainLayout,
 });
