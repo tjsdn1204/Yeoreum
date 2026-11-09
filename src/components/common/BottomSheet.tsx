@@ -6,9 +6,16 @@ interface BottomSheetProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function BottomSheet({ isOpen, onClose, title, children }: BottomSheetProps) {
+export function BottomSheet({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+}: BottomSheetProps) {
   if (!isOpen) return null;
 
   return (
@@ -19,7 +26,12 @@ export function BottomSheet({ isOpen, onClose, title, children }: BottomSheetPro
         onClick={onClose}
       />
       {/* 슬라이드 시트 */}
-      <div className="relative z-10 w-full max-w-md rounded-t-3xl bg-white p-6 shadow-2xl transition-transform animate-in slide-in-from-bottom">
+      <div
+        className={cn(
+          'relative z-10 w-full max-w-md rounded-t-3xl bg-white p-6 shadow-xl transition-transform',
+          className
+        )}
+      >
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-gray-300" />
         {title && <h3 className="mb-4 text-lg font-bold text-gray-900">{title}</h3>}
         {children}

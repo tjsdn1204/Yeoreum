@@ -1,5 +1,4 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -12,35 +11,32 @@ export function Button({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
-  className,
+  className = '',
   children,
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center rounded-full font-medium transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
+    'inline-flex items-center justify-center font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none rounded-2xl';
 
-  const variants = {
-    primary: 'bg-brand-primary text-white hover:bg-[#5c8394] shadow-sm',
-    secondary: 'bg-brand-surface text-gray-800 hover:bg-[#e4d4c3]',
-    outline: 'border border-brand-primary text-brand-primary bg-white hover:bg-brand-bg',
-    ghost: 'bg-transparent text-gray-700 hover:bg-black/5',
+  const variantStyles = {
+    primary: 'bg-[#6d96a8] text-white hover:bg-[#5b8496] shadow-sm',
+    secondary: 'bg-[#f0e4d6] text-gray-800 hover:bg-[#e6d6c4]',
+    outline: 'border border-[#6d96a8] text-[#6d96a8] bg-white hover:bg-[#6d96a8]/10',
+    ghost: 'text-gray-600 bg-transparent hover:bg-black/5',
   };
 
-  const sizes = {
-    sm: 'h-8 px-4 text-xs',
-    md: 'h-11 px-6 text-sm font-semibold',
-    lg: 'h-13 px-8 text-base font-semibold',
+  const sizeStyles = {
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-4 py-2.5 text-sm',
+    lg: 'px-5 py-3.5 text-base',
   };
+
+  const widthStyle = fullWidth ? 'w-full' : '';
 
   return (
     <button
-      className={cn(
-        baseStyles,
-        variants[variant],
-        sizes[size],
-        fullWidth && 'w-full',
-        className
-      )}
+      type="button"
+      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`}
       {...props}
     >
       {children}
