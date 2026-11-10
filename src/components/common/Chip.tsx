@@ -1,50 +1,36 @@
+// src/components/common/Chip.tsx
 import React from 'react';
-import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
-interface ChipProps {
+export interface ChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  icon?: React.ReactNode;
-  selected?: boolean;
+  variant?: 'primary' | 'secondary' | 'outline';
   onDelete?: () => void;
-  onClick?: () => void;
-  className?: string;
 }
 
-// ⭕ export function 선언 확인
 export function Chip({
   label,
-  icon,
-  selected = false,
+  variant = 'primary',
   onDelete,
-  onClick,
-  className,
+  className = '',
+  ...props
 }: ChipProps) {
+  // variant별 Tailwind 스타일 정의
+  const variantStyles = {
+    primary: 'bg-[#6d96a8] text-white',
+    secondary: 'bg-[#fef0c7] text-[#8c6211]',
+    outline: 'border border-gray-300 text-gray-700 bg-white',
+  };
+
   return (
     <button
       type="button"
-      onClick={onClick}
-      className={cn(
-        'inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all shrink-0',
-        selected
-          ? 'bg-[#6d96a8] text-white shadow-sm font-semibold'
-          : 'bg-white text-gray-700 border border-[#f0e4d6] hover:bg-[#f0e4d6]/50',
-        className
-      )}
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all ${variantStyles[variant]} ${className}`}
+      {...props}
     >
-      {icon && <span className="shrink-0">{icon}</span>}
       <span>{label}</span>
       {onDelete && (
-        <span
-          role="button"
-          tabIndex={0}
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete();
-          }}
-          className="ml-0.5 rounded-full p-0.5 hover:bg-black/10"
-        >
-          <X className="h-3 w-3" />
+        <span onClick={onDelete} className="cursor-pointer opacity-70 hover:opacity-100">
+          ✕
         </span>
       )}
     </button>
